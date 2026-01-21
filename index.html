@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para ti 💌</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f9c5d1, #fddde6);
+      font-family: 'Quicksand', sans-serif;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.9);
+    }
+
+    .card {
+      background: rgba(255,240,246,0.92);
+      border-radius: 28px;
+      padding: 32px 26px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.18);
+      position: relative;
+      overflow: hidden;
+      animation: popIn 1s ease;
+      z-index: 2;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #e75480;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+
+    p {
+      font-size: 17px;
+      color: #5a2a3a;
+      line-height: 1.7;
+      transition: opacity 0.6s ease;
+    }
+
+    .button {
+      margin-top: 22px;
+      padding: 12px 22px;
+      background: #e75480;
+      color: white;
+      border-radius: 22px;
+      display: inline-block;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .button:hover {
+      transform: scale(1.08);
+      background: #d6456f;
+    }
+
+    .decoration {
+      margin-top: 18px;
+      font-size: 26px;
+    }
+
+    .icon {
+      cursor: pointer;
+      margin: 0 12px;
+      transition: transform 0.4s ease;
+    }
+
+    .icon:hover {
+      transform: scale(1.4);
+    }
+
+    .signature {
+      margin-top: 22px;
+      font-size: 15px;
+      color: #b04a6f;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 22px;
+      animation: floatUp 5s linear forwards;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    .mute-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(231,84,128,0.85);
+      color: white;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, background 0.3s ease;
+      z-index: 3;
+    }
+
+    .mute-btn:hover {
+      transform: scale(1.1);
+      background: #d6456f;
+    }
+
+    /* PNG DECORATIONS */
+    .ribbon {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 240px;
+      opacity: 0.95;
+      z-index: 0;
+    }
+
+    .flower1 {
+      position: absolute;
+      bottom: 25px;
+      left: 15px;
+      width: 130px;
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    .flower2 {
+      position: absolute;
+      top: 80px;
+      right: 10px;
+      width: 110px;
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    .mymelody {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 95px;
+      cursor: pointer;
+      z-index: 2;
+      transition: transform 0.4s ease;
+    }
+
+    .mymelody:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DECOR PNG -->
+  <img src="BackgroundEraser_20260121_031711293.png" class="ribbon">
+  <img src="BackgroundEraser_20260121_031739467.png" class="flower1">
+  <img src="BackgroundEraser_20260121_032029588.png" class="flower2">
+  <img src="BackgroundEraser_20260121_032029588.png" class="mymelody" onclick="secretMessage()">
+
+  <!-- Audio -->
+  <audio id="bgMusic" loop>
+    <source src="temachii - may you never .mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Pantalla inicial -->
+  <div class="screen" id="startScreen">
+    <div class="card">
+      <h1>Para ti, con amor 💗</h1>
+      <p>Toca aquí para leer lo que Vicente siente hoy</p>
+      <div class="button" onclick="startExperience()">Tócame 💌</div>
+    </div>
+  </div>
+
+  <!-- Pantalla mensaje -->
+  <div class="screen hidden" id="messageScreen">
+    <div class="card">
+
+      <div class="mute-btn" onclick="toggleMusic()">🎵</div>
+
+      <h1>Cosas que nunca te dije pero siempre estuvieron ahí.</h1>
+
+      <p id="messageText">
+        Me acuerdo cuando salimos la primera vez y nos acostamos en el pasto,  
+        estaba tan nervioso que no podía ni mirarte…  
+        <br><br>
+        ¿Quién diría que somos todo ahora? 💖
+      </p>
+
+      <div class="decoration">
+        <span class="icon" onclick="secretMessage()">🌷</span>
+        <span class="icon" onclick="showRandomMessage()">💕</span>
+        <span class="icon" onclick="secretMessage()">🐾</span>
+      </div>
+
+      <div class="button" onclick="showRandomMessage()">Otro mensaje 💕</div>
+
+      <div class="signature">
+        Con amor, Vicente
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const messages = [
+      `Me acuerdo cuando salimos la primera vez y nos acostamos en el pasto,
+      estaba tan nervioso que no podía ni mirarte…
+
+      ¿Quién diría que somos todo ahora? 💖`
+    ];
+
+    let musicPlaying = false;
+
+    function startExperience() {
+      document.getElementById("startScreen").classList.add("hidden");
+      const msgScreen = document.getElementById("messageScreen");
+      msgScreen.classList.remove("hidden");
+
+      showRandomMessage();
+      spawnHearts();
+
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.5;
+      music.play().then(() => {
+        musicPlaying = true;
+      }).catch(() => {});
+    }
+
+    function showRandomMessage() {
+      const text = document.getElementById("messageText");
+      text.style.opacity = 0;
+
+      setTimeout(() => {
+        const random = Math.floor(Math.random() * messages.length);
+        text.innerHTML = messages[random].replace(/\n/g, "<br>");
+        text.style.opacity = 1;
+        spawnHearts();
+      }, 600);
+    }
+
+    function secretMessage() {
+      alert("Te amo más de lo que puedo escribir aquí 💕");
+    }
+
+    function spawnHearts() {
+      for (let i = 0; i < 7; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.innerText = "💗";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5500);
+      }
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      if (musicPlaying) {
+        music.pause();
+        musicPlaying = false;
+      } else {
+        music.play();
+        musicPlaying = true;
+      }
+    }
+  </script>
+
+</body>
+</html>
