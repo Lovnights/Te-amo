@@ -144,53 +144,46 @@
     /* PNG DECORATIONS */
     .ribbon {
       position: absolute;
-      top: 40px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 240px;
-      opacity: 0.95;
+      width: 180px;
+      opacity: 0.85;
       z-index: 0;
     }
 
     .flower1 {
       position: absolute;
-      bottom: 25px;
-      left: 15px;
-      width: 130px;
-      opacity: 0.9;
-      z-index: 0;
-    }
-
-    .flower2 {
-      position: absolute;
-      top: 80px;
-      right: 10px;
+      bottom: 10px;
+      left: -20px;
       width: 110px;
-      opacity: 0.9;
+      opacity: 0.85;
       z-index: 0;
     }
 
     .mymelody {
       position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 95px;
+      bottom: 18px;
+      right: 18px;
+      width: 65px;
       cursor: pointer;
-      z-index: 2;
+      z-index: 3;
       transition: transform 0.4s ease;
+      animation: floaty 5s ease-in-out infinite;
     }
 
-    .mymelody:hover {
-      transform: scale(1.2);
+    @keyframes floaty {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <!-- DECOR PNG -->
+  <!-- DECOR PNG (SOLO 3) -->
   <img src="BackgroundEraser_20260121_031711293.png" class="ribbon">
   <img src="BackgroundEraser_20260121_031739467.png" class="flower1">
-  <img src="BackgroundEraser_20260121_032029588.png" class="flower2">
   <img src="BackgroundEraser_20260121_032029588.png" class="mymelody" onclick="secretMessage()">
 
   <!-- Audio -->
